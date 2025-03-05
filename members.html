@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Members</title>
+    <script defer type="module" src="styles/scripts/members.js"></script>
+
+
+    <link rel="stylesheet" href="styles/members.css">
+
+</head>
+<body>
+    <h1>Church Members</h1>
+
+    <!-- Form to Add Member -->
+    <form id="member-form">
+        <input type="text" name="name" id="name" placeholder="Full Name" required>
+        <input type="text" name="telephone" id="telephone" placeholder="Telephone" required>
+        <input type="text" name="location" id="location" placeholder="Location" required>
+        <button type="submit">Add Member</button>
+    </form>
+
+    <!-- Members List -->
+    <h2>Member List</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Telephone</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody id="members-list"></tbody>
+    </table>
+</body>
+</html>
