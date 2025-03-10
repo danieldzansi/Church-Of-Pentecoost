@@ -45,6 +45,7 @@
 
 .sidebar-nav ul {
   list-style: none;
+  padding: 0; /* Remove default padding */
 }
 
 .sidebar-nav li a {
@@ -54,6 +55,7 @@
   color: var(--gray-dark);
   font-weight: 500;
   transition: var(--transition);
+  text-decoration: none; /* Remove default underline */
 }
 
 .sidebar-nav li a:hover {
@@ -89,10 +91,9 @@
 
 /* Main Content */
 .main-content {
-  flex: 1;
+  flex: 1; /* Make it fill available space */
   padding: 1.5rem;
   margin-left: 250px;
-  width: calc(100% - 250px);
   transition: all 0.3s ease;
 }
 
@@ -395,63 +396,54 @@
 }
 
 /* Responsive */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .sidebar {
-    width: 100px;
-    transform: translateX(0);
+    width: 100px; /* Reduced sidebar width */
   }
-  
+
   .sidebar-header {
     padding: 1rem;
   }
-  
+
   .sidebar-header h2,
   .sidebar-footer p,
   .sidebar-nav li a span {
     display: none;
   }
-  
+
   .sidebar-nav li a {
     justify-content: center;
     padding: 0.75rem;
   }
-  
+
   .sidebar-nav li a i {
     margin-right: 0;
     font-size: 1.25rem;
   }
-  
+
   .main-content {
-    
+    flex: 1; /* Fill available space */
+    margin-left: 100px; /* Adjusted margin */
     width: calc(100% - 100px);
   }
-}
 
-@media (max-width: 768px) {
   .content-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .header-actions {
     width: 100%;
     justify-content: space-between;
   }
-  
-  .charts-section {
-    grid-template-columns: 1fr;
-  }
-  
-  .summary-cards {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-  
+
+  .charts-section,
+  .summary-cards,
   .filter-controls {
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr; /* Single column grids */
   }
-  
+
   .filter-group {
     width: 100%;
   }
@@ -460,19 +452,19 @@
 @media (max-width: 480px) {
   .sidebar {
     width: 0;
-    transform: translateX(-100%);
+    transform: translateX(-100%); /* Hide sidebar */
   }
-  
+
   .sidebar.open {
     width: 250px;
-    transform: translateX(0);
+    transform: translateX(0); /* Show sidebar when open */
   }
-  
+
   .main-content {
+    flex: 1; /* Fill available space */
     margin-left: 0;
-    width: 100%;
   }
-  
+
   .mobile-nav-toggle {
     display: block;
     position: fixed;

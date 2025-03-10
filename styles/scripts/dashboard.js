@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const recentTransactionsBody = document.getElementById("recent-transactions-body");
     const transactionForm = document.getElementById("transaction-form");
     const transactionModal = document.getElementById("transaction-modal");
+    const sidebar = document.querySelector(".sidebar"); // Select the sidebar element
 
     // Fetch user
     let { data: user } = await supabase.auth.getUser();
@@ -28,16 +29,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Update Dashboard UI
     function updateDashboard(data) {
-        let totalIncome = 0, totalExpenses = 0, sundayOffering = 0;
+        let totalIncome = 0,
+            totalExpenses = 0,
+            sundayOffering = 0;
 
-        recentTransactionsBody.innerHTML = data.slice(-5).reverse().map(txn => `
-            <tr>
-                <td>${new Date(txn.date).toLocaleDateString()}</td>
-                <td>${txn.description}</td>
-                <td>${txn.category}</td>
-                <td class="${txn.type}">${txn.type.toUpperCase()}</td>
-                <td>$${txn.amount.toFixed(2)}</td>
-            </tr>`).join("");
+        recentTransactionsBody.innerHTML = data
+            .slice(-5)
+            .reverse()
+            .map((txn) => `
+                <tr>
+                    <td>${new Date(txn.date).toLocaleDateString()}</td>
+                    <td>${txn.description}</td>
+                    <td>${txn.category}</td>
+                    <td class="${txn.type}">${txn.type.toUpperCase()}</td>
+                    <td>$${txn.amount.toFixed(2)}</td>
+                </tr>`)
+            .join("");
 
         data.forEach(({ type, amount, category }) => {
             if (type === "income") totalIncome += amount;
@@ -58,14 +65,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         const ctx1 = document.getElementById("income-expense-chart").getContext("2d");
         const ctx2 = document.getElementById("income-categories-chart").getContext("2d");
 
-        const incomeData = data.filter(t => t.type === "income").reduce((sum, t) => sum + t.amount, 0);
-        const expenseData = data.filter(t => t.type === "expense").reduce((sum, t) => sum + t.amount, 0);
+        const incomeData = data.filter((t) => t.type === "income").reduce((sum, t) => sum + t.amount, 0);
+        const expenseData = data.filter((t) => t.type === "expense").reduce((sum, t) => sum + t.amount, 0);
 
-        new Chart(ctx1, { type: "bar", data: { labels: ["Income", "Expenses"], datasets: [{ label: "Overview", data: [incomeData, expenseData], backgroundColor: ["#4CAF50", "#F44336"] }] } });
+        new Chart(ctx1, {
+            type: "bar",
+            data: {
+                labels: ["Income", "Expenses"],
+                datasets: [{ label: "Overview", data: [incomeData, expenseData], backgroundColor: ["#4CAF50", "#F44336"] }],
+            },
+        });
 
-        const categories = data.filter(t => t.type === "income").reduce((acc, t) => ((acc[t.category] = (acc[t.category] || 0) + t.amount), acc), {});
+        const categories = data
+            .filter((t) => t.type === "income")
+            .reduce((acc, t) => ((acc[t.category] = (acc[t.category] || 0) + t.amount), acc), {});
 
-        new Chart(ctx2, { type: "pie", data: { labels: Object.keys(categories), datasets: [{ data: Object.values(categories), backgroundColor: ["#FF9800", "#2196F3", "#9C27B0", "#009688"] }] } });
+        new Chart(ctx2, {
+            type: "pie",
+            data: {
+                labels: Object.keys(categories),
+                datasets: [{ data: Object.values(categories), backgroundColor: ["#FF9800", "#2196F3", "#9C27B0", "#009688"] }],
+            },
+        });
     }
 
     // Handle Modal Toggle
@@ -84,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             category: document.getElementById("transaction-category").value,
             amount: parseFloat(document.getElementById("transaction-amount").value),
             description: document.getElementById("transaction-description").value,
-            notes: document.getElementById("transaction-notes").value || null
+            notes: document.getElementById("transaction-notes").value || null,
         };
 
         let { error } = await supabase.from("transactions").insert([newTransaction]);
@@ -97,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Sidebar Toggle for Mobile Responsiveness
     document.getElementById("menu-toggle").addEventListener("click", () => {
-        document.querySelector(".sidebar").classList.toggle("active");
+        sidebar.classList.toggle("open"); // Toggle the 'open' class on the sidebar
     });
 
     fetchFinancialRecords();
