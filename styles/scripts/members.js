@@ -11,7 +11,7 @@ document.getElementById("member-form").addEventListener("submit", async (e) => {
         const member = Object.fromEntries(new FormData(e.target));
         
         // Validate data before submission
-        if (!member.name || !member.telephone || !member.location) {
+        if (!member.name || !member.telephone || !member.location || ! member.date) {
             throw new Error("All fields are required");
         }
 
@@ -48,6 +48,8 @@ async function fetchMembers() {
                     <td>${m.name || 'N/A'}</td>
                     <td>${m.telephone || 'N/A'}</td>
                     <td>${m.location || 'N/A'}</td>
+                    <td>${m.date || 'N/A'}</td>
+
                 </tr>
             `)
             .join("");
