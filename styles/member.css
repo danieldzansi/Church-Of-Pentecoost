@@ -36,6 +36,7 @@ form {
     gap: 10px;
 }
 
+/* Ensure inputs and buttons align well */
 input, select, button {
     padding: 10px;
     border: 1px solid #ccc;
@@ -48,12 +49,17 @@ button {
     background: #28a745;
     color: white;
     cursor: pointer;
+    width: auto; /* Prevents stretching */
+    min-width: 100px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    display: block;
+    overflow-x: auto; /* Allows horizontal scrolling */
+    white-space: nowrap;
 }
 
 th, td {
@@ -72,8 +78,14 @@ th {
     nav ul {
         flex-direction: column;
     }
-    
+
     form {
         flex-direction: column;
+        align-items: stretch; /* Ensures full width */
+    }
+
+    input, select, button {
+        width: 100%; /* Make inputs full width */
+        min-width: unset;
     }
 }
