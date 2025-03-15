@@ -3,103 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Records - Church Finance System</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    
+    <title>Records Page</title>
+    <link rel="stylesheet" href="styles/records.css">
+    <script defer src="scripts/records.js"></script>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar Navigation -->
+    <div class="container">
+        <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-header">
-                <img src="assets/logo.png" alt="Church Logo" class="logo">
-
-                <h2>Church Finance</h2>
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="Church Logo">
+                <h2>Finance Records</h2>
             </div>
-            
-            <nav class="sidebar-nav">
+            <nav>
                 <ul>
-                    <li>
-                        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                    </li>
-                    <li class="active">
-                        <a href="records.html"><i class="fas fa-file-invoice-dollar"></i> Records</a>
-                    </li>
-                    <li>
-                        <a href="reports.html"><i class="fas fa-chart-bar"></i> Reports</a>
-                    </li>
-                    <li class="nav-divider"></li>
-                    <li>
-                        <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="records.html" class="active">Manage Records</a></li>
+                    <li><a href="reports.html">Generate Reports</a></li>
+                    <li><a href="landing.html" id="logoutBtn">Logout</a></li>
                 </ul>
             </nav>
-            
-            <div class="sidebar-footer">
-                <p>Logged in as: <span id="user-name">Secretary</span></p>
-            </div>
         </aside>
         
-        <!-- Main Content Area -->
+        <!-- Main Content -->
         <main class="main-content">
-            <header class="content-header">
-                <div class="header-title">
-                    <h1>Financial Records</h1>
-                    <p>Manage all income and expense records</p>
-                </div>
-                
-                <div class="header-actions">
-                    <button id="quick-add" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> New Transaction
-                    </button>
-                </div>
+            <header>
+                <button id="menuToggle" class="menu-icon">&#9776;</button>
+                <h1>Financial Records</h1>
             </header>
-            
-            <!-- Filter Controls -->
-            <section class="filter-controls">
-                <div class="filter-group">
-                    <label for="filter-date-from">From:</label>
-                    <input type="date" id="filter-date-from">
+
+            <!-- Year Sections -->
+            <section class="years-section">
+                <div class="year" data-year="2023">
+                    <span>📂 2023</span>
+                    <div class="dropdown">
+                        <a href="PentFinanceWS/church-finance/records23/accounts_2023.html">Accounts</a>
+                        <a href="PentFinanceWS/church-finance/records23/payment_2023.html">Payment</a>
+                        <a href="PentFinanceWS/church-finance/records23/receipt_2023.html">Receipt</a>
+                        <a href="PentFinanceWS/church-finance/records23/district_2023.html">District Payment</a>
+                    </div>
                 </div>
-                
-                <div class="filter-group">
-                    <label for="filter-date-to">To:</label>
-                    <input type="date" id="filter-date-to">
+                <div class="year" data-year="2024">
+                    <span>📂 2024</span>
+                    <div class="dropdown">
+                        <a href="PentFinanceWS/church-finance/records24/accounts_2024.html">Accounts</a>
+                        <a href="PentFinanceWS/church-finance/records24/payment_2024.html">Payment</a>
+                        <a href="PentFinanceWS/church-finance/records24/receipt_2024.html">Receipt</a>
+                        <a href="PentFinanceWS/church-finance/records24/district_2024.html">District Payment</a>
+                    </div>
                 </div>
-                
-                <div class="filter-group">
-                    <label for="filter-type">Type:</label>
-                    <select id="filter-type">
-                        <option value="all">All</option>
-                        <option value="income">Income</option>
-                        <option value="expense">Expense</option>
-                    </select>
+                <div class="year" data-year="2025">
+                    <span>📂 2025</span>
+                    <div class="dropdown">
+                        <a href="accounts_2025.html">Accounts</a>
+                        <a href="payment_2025.html">Payment</a>
+                        <a href="receipt_2025.html">Receipt</a>
+                        <a href="district_2025.html">District Payment</a>
+                    </div>
                 </div>
-                
-                <div class="filter-group">
-                    <label for="filter-category">Category:</label>
-                    <select id="filter-category">
-                        <option value="all">All Categories</option>
-                        <!-- Categories will be loaded dynamically -->
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label for="filter-search">Search:</label>
-                    <input type="text" id="filter-search" placeholder="Description or notes...">
-                </div>
-                
-                <button id="apply-filters" class="btn btn-secondary">
-                    <i class="fas fa-filter"></i> Apply Filters
-                </button>
-                
-                <button id="reset-filters" class="btn btn-text">
-                    <i class="fas fa-undo"></i> Reset
-                </button>
             </section>
-            
-            <!-- Transaction Records -->
-            <section class="transaction-records">
+        </main>
+    </div>
+</body>
+</html>

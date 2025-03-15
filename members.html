@@ -3,44 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Church Members</title>
-    <script defer type="module" src="styles/scripts/members.js"></script>
-
-
-    <link rel="stylesheet" href="styles/members.css">
-
+    <title>Church Membership Records</title>
+    <link rel="stylesheet" href="styles/member.css">
 </head>
 <body>
-    <h1>Church Members</h1>
+    <nav>
+        <ul>
+            <li><a href="#visitors">Visitors Membership</a></li>
+            <li><a href="#soul-won">Soul Won</a></li>
+            <li><a href="#souls-baptized">Souls Baptized</a></li>
+            <li><a href="#death">Death Records</a></li>
+            <li><a href="#birth">Birth Records</a></li>
+        </ul>
+    </nav>
+    
+    <section id="visitors">
+        <h2>Visitors Membership</h2>
+        <form id="visitorForm">
+            <input type="text" name="Name" placeholder="Name" required>
+            <input type="text" name="Contact" placeholder="Contact" required>
+            <input type="text" name="Address" placeholder="Location" required>
+            <input type="date" name="Date" placeholder="Date of Visit" required>
+            <input type="text" name="InvitedBy" placeholder="Invited By" required>
+            
+            <button type="submit">Add Visitor</button>
+        </form>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Date of Visit</th>
+                    <th>Invited By</th>
+                </tr>
+            </thead>
+            <tbody id="visitorsTableBody">
+                <!-- Data will be inserted here -->
+            </tbody>
+        </table>
+    </section>
+    
+    
+    <section id="souls">
+        <h2>Soul Won</h2>
+        <form id="soulsForm">
+            <input type="text" name="Name" placeholder="Name" required>
+            <input type="text" name="Contact" placeholder="Contact" required>
+            <input type="text" name="Address" placeholder="Location">
+            <input type="date" name="Date"placeholder="Date of Conversion" required>
+            <input type="text" name="ConvertedBy" placeholder="Converted By">
+            <button type="submit">Add Soul Won</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Date of Conversion</th>
+                    <th>Converted By</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="SoulsTableBody">
 
-    <!-- Form to Add Member -->
-    <form id="member-form">
-        <input type="text" name="name" id="name" placeholder="Full Name" required>
-        <input type="text" name="telephone" id="telephone" placeholder="Telephone" required>
-        <input type="text" name="location" id="location" placeholder="Location" required>
-        <input type="text" name="date" id="date" placeholder="Date of Birth" required>
-        <input type="text" name="category" id="category" placeholder="Category" required>
-        <input type="text" name="baptism" id="baptism" placeholder="Baptism" required>
-        <input type="text" name="title" id="title" placeholder="title" required>
-        
-        <button type="submit">Add Member</button>
-    </form>
 
-    <!-- Members List -->
-    <h2>Member List</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Telephone</th>
-                <th>Location</th>
-                <th>Date of Birth</th>
-                <th>Category</th>
-                <th>Title</th>
-                <th>Baptism</th>
-            </tr>
-        </thead>
-        <tbody id="members-list"></tbody>
-    </table>
+
+            </tbody>
+        </table>
+    </section>
+    
+    <section id="baptism">
+        <h2>Souls Baptized</h2>
+        <form id="soulBaptizedForm">
+            <input type="text" name="Name"  placeholder="Name" required>
+            <input type="text" name="Contact"  placeholder="Contact" required>
+            <input type="date" name="Date"  placeholder="Date of Baptism" required>
+            <input type="text" name="BaptizedBy"  placeholder="Baptized By">
+            <button type="submit">Add Baptized Soul</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Date of Baptism</th>
+                    <th>Baptized By</th>
+                  
+                </tr>
+            </thead>
+            <tbody id="SoulTableBody">
+
+            </tbody>
+        </table>
+    </section>
+    
+    <section id="death">
+        <h2>Death Records</h2>
+        <form id="deathTableForm">
+            <input type="text" name="Name" placeholder="Name" required>
+            <input type="text" name="Contact" placeholder="Contact">
+            <input type="date" name="Date" placeholder="Date of Death" required>
+            <input type="text" name="Cause" placeholder="Cause">
+            <input type="text" name="FamilyContact" placeholder="Family Contact">
+            <button type="submit">Add Death Record</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                   
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Date of Death</th>
+                    <th>Cause</th>
+                    <th>Family Contact</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="DeathsTableBody">
+
+            </tbody>
+        </table>
+    </section>
+    
+    <section id="birthForm">
+        <h2>Birth Records</h2>
+        <form>
+            <input type="text" name="BabyName" placeholder="Baby’s Name" required>
+            <input type="text" name="ParentsName" placeholder="Parents’ Names" required>
+            <input type="date" name="Date" placeholder="Date of Birth" required>
+            <select name="Gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <input type="date" name="DedicationDate" placeholder="Dedication Date" required>
+            <button type="submit">Add Birth Record</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    
+                    <th>Baby’s Name</th>
+                    <th>Parents’ Names</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                    <th>Dedication Date</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="BirthsTableBody">
+
+            </tbody>
+        </table>
+    </section>
+     <script type="module" src="styles/scripts/member.js"></script>
+   
 </body>
 </html>

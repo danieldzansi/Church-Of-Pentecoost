@@ -1,0 +1,251 @@
+/* General Reset */
+/* Header Styling */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures spacing between icon & title */
+    padding: 15px 20px;
+    background: #2c3e50;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    padding-left: 20px; /* Moves text slightly to the right */
+    font-size: 22px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    left: -3000px; /* Move it further left to fully hide */
+    transition: left 0.3s ease-in-out;
+    overflow: hidden; /* Prevent any content from showing */
+}
+.sidebar.active {
+    left: 0;
+}
+
+/* Menu Icon */
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #15a9ce;
+    margin: 10px;
+}
+
+/* Main Content (Shifts when menu opens) */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 0; /* Default position */
+}
+.sidebar.active ~ .main-content {
+    margin-left: 260px; /* Shift content when menu opens */
+}
+
+/* Year Section (Folders) */
+.years-section {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+.year {
+    background: #ecf0f1;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    width: 150px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, transform 0.2s;
+}
+.year:hover {
+    background: #bdc3c7;
+    transform: scale(1.05);
+}
+
+/* Dropdown */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    width: 150px;
+}
+.year:hover .dropdown {
+    display: block;
+}
+.dropdown a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+}
+.dropdown a:hover {
+    background: #ddd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .years-section {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.dashboard-container {
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    left: -3000px; /* Move it further left to fully hide */
+    transition: left 0.3s ease-in-out;
+    overflow: hidden; /* Prevent any content from showing */
+}
+
+
+.sidebar.show {
+    left: 0; /* Slide in */
+}
+
+.sidebar .logo img {
+    width: 100px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 20px 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+#logoutBtn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 20px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.main-content header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#menuToggle {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+
+.sidebar nav ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+.sidebar nav ul li a:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* White glow effect */
+    background: rgba(255, 255, 255, 0.2); /* Slight background highlight */
+    transform: scale(1.05); /* Slight zoom-in effect */
+}
+
+@media (max-width: 768px) { /* Mobile View */
+    .years-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 20px;
+    }
+
+    .year {
+        background: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+        position: relative;
+    }
+
+    .dropdown {
+        display: none;
+        flex-direction: column;
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+        position: relative;
+    }
+
+    .year.active {
+        margin-bottom: 150px; /* Pushes items below down when active */
+    }
+
+    .year.active .dropdown {
+        display: flex; /* Show dropdown when clicked */
+    }
+}
