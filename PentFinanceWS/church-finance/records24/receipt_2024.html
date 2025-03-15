@@ -1,0 +1,5142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background: #333;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            right: -300px; /* Move sidebar to the right */
+            transition: right 0.3s;
+            box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .logo img {
+            width: 40px;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar nav ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar nav ul li a:hover,
+        .sidebar nav ul li a.active {
+            background: #555;
+        }
+
+        /* Menu Button */
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #15a9ce;
+            padding: 10px;
+            position: absolute;
+            top: 20px;
+            right: 20px; /* Move button to the right */
+        }
+
+        /* Adjust main content when menu opens */
+        .main-content {
+            transition: margin-right 0.3s;
+        }
+
+        .sidebar.active + .main-content {
+            margin-right: 250px;
+        }
+        /* Ensure the table container takes full width */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Scroll horizontally if needed */
+}
+
+/* Style the table */
+table {
+    width: 100%; /* Full width of container */
+    border-collapse: collapse;
+    table-layout: fixed; /* Ensures even column spacing */
+}
+
+/* Style table header */
+th {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+/* Style table rows */
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+/* Make text wrap properly */
+th, td {
+    overflow: hidden;
+    white-space: normal;
+}
+
+/* Responsive Fix */
+@media screen and (max-width: 768px) {
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initially hidden */
+    width: 250px;
+    height: 100vh;
+    background: #333;
+    color: white;
+    padding: 20px;
+    transition: right 0.3s, top 0.3s;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+.sidebar.hidden {
+    top: -100px; /* Move sidebar up when scrolling down */
+}
+
+/* Menu Button */
+.menu-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #15a9ce;
+    padding: 10px;
+    transition: top 0.3s;
+}
+
+.menu-icon.hidden {
+    top: -100px; /* Move button up when scrolling down */
+}
+
+    </style>
+    
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="../assets/images/logo.png" alt="Church Logo">
+            <h2>ACCOUNTS 2023</h2>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../dashboard.html">Dashboard</a></li>
+                <li><a href="../records.html" class="active">Manage Records</a></li>
+                <li><a href="../landing.html" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Menu Toggle Button -->
+    <button id="menuToggle" class="menu-icon">&#9776;</button>
+
+    <script>
+        document.getElementById("menuToggle").addEventListener("click", function() {
+            document.querySelector(".sidebar").classList.toggle("active");
+        });
+
+        document.addEventListener("click", function(event) {
+            let sidebar = document.querySelector(".sidebar");
+            let menuToggle = document.getElementById("menuToggle");
+
+            if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                sidebar.classList.remove("active");
+            }
+        });
+        
+    </script>
+
+</body>
+</html>
+<style>
+    /* Table container */
+.table-container {
+    width: 100%;
+    max-height: 80vh; /* Adjust height if needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: auto; /* Enables horizontal scrolling if needed */
+    border: 1px solid #ddd;
+}
+
+/* Table with auto-adjusting columns */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Ensures columns resize based on content */
+}
+
+/* Sticky header */
+th {
+    position: sticky;
+    top: 0;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap; /* Prevents text from wrapping */
+    z-index: 10; /* Ensures it stays above content */
+}
+
+/* Table cells */
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap; /* Prevents text wrapping */
+}
+
+/* Responsive Fix */
+@media screen and (max-width: 768px) {
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+        white-space: normal; /* Allows wrapping on smaller screens */
+    }
+}
+
+</style>
+
+<table>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> THE CHURCH OF PENTECOST  </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> EWE ASSEMBLY, PANTANG VILLAGE </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> RECEIPT CASHBOOK </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>RUNING TOTAL</td>
+        <td></td>
+        <td> 211,663.80 </td>
+        <td> 13,562.80 </td>
+        <td> 8,896.50 </td>
+        <td> 99,750.10 </td>
+        <td> 34,590.50 </td>
+        <td> - 0 </td>
+        <td> - 0 </td>
+        <td> 7,709.10 </td>
+        <td> 638.50 </td>
+        <td> 2,008.30 </td>
+        <td> 1,783.00 </td>
+        <td> 2,300.00 </td>
+        <td> 854.10 </td>
+        <td> 9,418.00 </td>
+        <td> - 0 </td>
+        <td> 4,011.50 </td>
+        <td> 18,162.50 </td>
+        <td> 695.00 </td>
+        <td> 2,138.00 </td>
+        <td> 1,076.30 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Date </td>
+        <td>Particulars </td>
+        <td>Reference</td>
+        <td> cash </td>
+        <td>Local Offering</td>
+        <td>Freewill </td>
+        <td>Tithes</td>
+        <td> Missions Offery</td>
+        <td>Evening service offering</td>
+        <td>Mega offering</td>
+        <td>Local development fund</td>
+        <td>Evangelism ministry</td>
+        <td>Youth ministry</td>
+        <td>Men ministry</td>
+        <td>Women ministry</td>
+        <td>Children Ministry</td>
+        <td>Area Week Offering</td>
+        <td>Refund </td>
+        <td>Mckeown Missions week</td>
+        <td> District week offering </td>
+        <td> Pentecost University Offering </td>
+        <td>Pensos</td>
+        <td>GPCC</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Jan-24</td>
+        <td>Tithes</td>
+        <td></td>
+        <td> 3,398.00 </td>
+        <td></td>
+        <td></td>
+        <td> 2,444.40 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Jan-24</td>
+        <td>Ministry Offery</td>
+        <td></td>
+        <td> 2,259.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 2,259.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Jan-24</td>
+        <td>Local Development Fund</td>
+        <td></td>
+        <td> 953.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 953.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Jan-24</td>
+        <td>Freewill</td>
+        <td></td>
+        <td> 100.00 </td>
+        <td></td>
+        <td> 100.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Jan-24</td>
+        <td>Tithes</td>
+        <td>1199870</td>
+        <td> 1,420.50 </td>
+        <td></td>
+        <td></td>
+        <td> 1,420.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Jan-24</td>
+        <td>Local offering</td>
+        <td>1199869</td>
+        <td> 942.50 </td>
+        <td> 942.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Jan-24</td>
+        <td>Freewill</td>
+        <td>1199868</td>
+        <td> 212.00 </td>
+        <td></td>
+        <td> 212.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Jan-24</td>
+        <td>Youth ministry</td>
+        <td>1199871</td>
+        <td> 61.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 61.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Jan-24</td>
+        <td>Tithes</td>
+        <td>1199872</td>
+        <td> 1,634.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,634.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Jan-24</td>
+        <td>Freewill</td>
+        <td>1199872</td>
+        <td> 250.00 </td>
+        <td></td>
+        <td> 250.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Jan-24</td>
+        <td>Youth ministry</td>
+        <td>1199873</td>
+        <td> 68.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 68.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Jan-24</td>
+        <td>Tithes</td>
+        <td>1199874</td>
+        <td> 1,013.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,013.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>24-Jan-24</td>
+        <td>Local offering</td>
+        <td>1199874</td>
+        <td> 643.20 </td>
+        <td> 643.20 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4-Feb-24</td>
+        <td>Tithes</td>
+        <td>1199877</td>
+        <td> 6,035.60 </td>
+        <td></td>
+        <td></td>
+        <td> 6,035.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4-Feb-24</td>
+        <td>Freewill</td>
+        <td>1199878</td>
+        <td> 577.00 </td>
+        <td></td>
+        <td> 577.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4-Feb-24</td>
+        <td>M.O</td>
+        <td>1199878</td>
+        <td> 2,698.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 2,698.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4-Feb-24</td>
+        <td>Evangelism Ministry</td>
+        <td>1199879</td>
+        <td> 242.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 242.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4-Feb-24</td>
+        <td>Youth ministry</td>
+        <td>1199880</td>
+        <td> 32.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 32.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4-Feb-24</td>
+        <td>Women Ministry</td>
+        <td>1199881</td>
+        <td> 177.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 177.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Feb-24</td>
+        <td>Tithes</td>
+        <td>1199882</td>
+        <td> 1,169.60 </td>
+        <td></td>
+        <td></td>
+        <td> 1,169.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Feb-24</td>
+        <td>Freewill</td>
+        <td>1199882</td>
+        <td> 198.00 </td>
+        <td></td>
+        <td> 198.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Feb-24</td>
+        <td>Local offering</td>
+        <td>1199882</td>
+        <td> 604.00 </td>
+        <td> 604.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Feb-24</td>
+        <td>Youth ministry</td>
+        <td>1199883</td>
+        <td> 15.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 15.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18-Feb-24</td>
+        <td>Children Ministry</td>
+        <td>1199884</td>
+        <td> 79.20 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 79.20 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18-Feb-24</td>
+        <td>Tithes</td>
+        <td>1199886</td>
+        <td> 1,538.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,538.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18-Feb-24</td>
+        <td>Area Offering</td>
+        <td>1199886</td>
+        <td> 3,722.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 3,722.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18-Feb-24</td>
+        <td>Freewill</td>
+        <td>1199886</td>
+        <td> 30.00 </td>
+        <td></td>
+        <td> 30.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Feb-24</td>
+        <td>Men Ministry</td>
+        <td>1199889</td>
+        <td> 235.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 235.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Feb-24</td>
+        <td>Men Ministry</td>
+        <td>1199889</td>
+        <td> 10.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 10.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Feb-24</td>
+        <td>Youth ministry</td>
+        <td>1199890</td>
+        <td> 76.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 76.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Feb-24</td>
+        <td>Evangelism Ministry</td>
+        <td>1199891</td>
+        <td> 34.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 34.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Feb-24</td>
+        <td>Women Ministry</td>
+        <td>1199891</td>
+        <td> 150.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 150.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Feb-24</td>
+        <td>Freewill</td>
+        <td>1199893</td>
+        <td> 120.00 </td>
+        <td></td>
+        <td> 120.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Feb-24</td>
+        <td>Tithes</td>
+        <td>1199893</td>
+        <td> 1,232.70 </td>
+        <td></td>
+        <td></td>
+        <td> 1,232.70 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Feb-24</td>
+        <td>Local offering</td>
+        <td>1199893</td>
+        <td> 1,268.00 </td>
+        <td> 1,268.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Mar-24</td>
+        <td>Tithes</td>
+        <td>1199894</td>
+        <td> 2,504.70 </td>
+        <td></td>
+        <td></td>
+        <td> 2,504.70 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Mar-24</td>
+        <td>M.O</td>
+        <td>1199894</td>
+        <td> 2,711.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 2,711.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Mar-24</td>
+        <td>Freewill</td>
+        <td>1199894</td>
+        <td> 600.00 </td>
+        <td></td>
+        <td> 600.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Mar-24</td>
+        <td>Youth ministry</td>
+        <td>1199895</td>
+        <td> 72.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 72.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Mar-24</td>
+        <td>Tithes</td>
+        <td>1199896</td>
+        <td> 1,375.90 </td>
+        <td></td>
+        <td></td>
+        <td> 1,375.90 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Mar-24</td>
+        <td>Mission Week Offerying</td>
+        <td>1199896</td>
+        <td> 4,011.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 4,011.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Mar-24</td>
+        <td>Freewill</td>
+        <td>1199896</td>
+        <td> 55.00 </td>
+        <td></td>
+        <td> 55.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Mar-24</td>
+        <td>Children Ministry</td>
+        <td>1199897</td>
+        <td> 48.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 48.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Mar-24</td>
+        <td>Tithes</td>
+        <td>1199898</td>
+        <td> 1,296.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,296.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Mar-24</td>
+        <td>Freewill</td>
+        <td>1199899</td>
+        <td> 35.00 </td>
+        <td></td>
+        <td> 35.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Mar-24</td>
+        <td>Local offering</td>
+        <td>1199900</td>
+        <td> 593.00 </td>
+        <td> 593.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>24-Mar-24</td>
+        <td>Youth ministry</td>
+        <td>1822301</td>
+        <td> 80.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 80.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>24-Mar-24</td>
+        <td>Tithes</td>
+        <td>1822302</td>
+        <td> 1,263.60 </td>
+        <td></td>
+        <td></td>
+        <td> 1,263.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>24-Mar-24</td>
+        <td>Local offering</td>
+        <td>1822302</td>
+        <td> 766.00 </td>
+        <td> 766.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>24-Mar-24</td>
+        <td>Freewill</td>
+        <td>1822302</td>
+        <td> 100.00 </td>
+        <td></td>
+        <td> 100.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Apr-24</td>
+        <td>Youth ministry</td>
+        <td>1822304</td>
+        <td> 132.80 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 132.80 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Apr-24</td>
+        <td>Tithes</td>
+        <td>1822305</td>
+        <td> 9,738.30 </td>
+        <td></td>
+        <td></td>
+        <td> 9,738.30 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Apr-24</td>
+        <td>Freewill</td>
+        <td>1822305</td>
+        <td> 585.00 </td>
+        <td></td>
+        <td> 585.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Apr-24</td>
+        <td>M.O</td>
+        <td>1822305</td>
+        <td> 2,764.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 2,764.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Apr-24</td>
+        <td>LDF</td>
+        <td>1822305</td>
+        <td> 1,332.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1,332.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Apr-24</td>
+        <td>Children Ministry</td>
+        <td>1822306</td>
+        <td> 21.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 21.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Apr-24</td>
+        <td>Youth ministry</td>
+        <td>1822307</td>
+        <td> 70.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 70.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Apr-24</td>
+        <td>Tithes</td>
+        <td>1822309</td>
+        <td> 1,574.30 </td>
+        <td></td>
+        <td></td>
+        <td> 1,574.30 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Apr-24</td>
+        <td>Local offering</td>
+        <td>1822309</td>
+        <td> 562.20 </td>
+        <td> 562.20 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Apr-24</td>
+        <td>Freewill</td>
+        <td>1822309</td>
+        <td> 295.00 </td>
+        <td></td>
+        <td> 295.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Apr-24</td>
+        <td>Children Ministry</td>
+        <td>1822310</td>
+        <td> 37.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 37.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Apr-24</td>
+        <td>Freewill</td>
+        <td>1822311</td>
+        <td> 97.00 </td>
+        <td></td>
+        <td> 97.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Apr-24</td>
+        <td>Tithes</td>
+        <td>1822311</td>
+        <td> 817.00 </td>
+        <td></td>
+        <td></td>
+        <td> 817.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Apr-24</td>
+        <td>District Offering</td>
+        <td>1822311</td>
+        <td> 11,138.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 11,138.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Apr-24</td>
+        <td>District Offering-Evening</td>
+        <td>1822311</td>
+        <td> 1,464.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1,464.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Apr-24</td>
+        <td>Women Ministry</td>
+        <td>1822312</td>
+        <td> 70.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 70.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Apr-24</td>
+        <td>Evangelism Ministry</td>
+        <td>1822313</td>
+        <td> 50.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 50.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Apr-24</td>
+        <td>Tithes</td>
+        <td>1822314</td>
+        <td> 1,480.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,480.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Apr-24</td>
+        <td>Local offering</td>
+        <td>1822314</td>
+        <td> 600.60 </td>
+        <td> 600.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Apr-24</td>
+        <td>Freewill</td>
+        <td>1822314</td>
+        <td> 140.00 </td>
+        <td></td>
+        <td> 140.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2-May-24</td>
+        <td>Men Ministry</td>
+        <td>1822315</td>
+        <td> 68.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 68.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5-May-24</td>
+        <td>Tithes</td>
+        <td>1822318</td>
+        <td> 3,381.30 </td>
+        <td></td>
+        <td></td>
+        <td> 3,381.30 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5-May-24</td>
+        <td>Freewill</td>
+        <td>1822318</td>
+        <td> 770.00 </td>
+        <td></td>
+        <td> 770.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5-May-24</td>
+        <td>M.O</td>
+        <td>1822318</td>
+        <td> 3,455.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 3,455.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5-May-24</td>
+        <td>LDF</td>
+        <td>1822318</td>
+        <td> 695.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 695.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5-May-24</td>
+        <td>Youth ministry</td>
+        <td>1822320</td>
+        <td> 50.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 50.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12-May-24</td>
+        <td>Tithes</td>
+        <td>1822323</td>
+        <td> 2,003.20 </td>
+        <td></td>
+        <td></td>
+        <td> 2,003.20 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12-May-24</td>
+        <td>Freewill</td>
+        <td>1822323</td>
+        <td> 241.00 </td>
+        <td></td>
+        <td> 241.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12-May-24</td>
+        <td>Women Ministry</td>
+        <td>1822323</td>
+        <td> 2,797.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1,398.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12-May-24</td>
+        <td>Women Ministry</td>
+        <td>1822322</td>
+        <td> 308.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 154.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>19-May-24</td>
+        <td>Children Ministry</td>
+        <td>1822319</td>
+        <td> 67.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 67.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>19-May-24</td>
+        <td>Tithes</td>
+        <td>1822324</td>
+        <td> 1,513.50 </td>
+        <td></td>
+        <td></td>
+        <td> 1,513.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>19-May-24</td>
+        <td>Freewill</td>
+        <td>1822324</td>
+        <td> 176.00 </td>
+        <td></td>
+        <td> 176.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>19-May-24</td>
+        <td>Local offering</td>
+        <td>1822324</td>
+        <td> 1,003.30 </td>
+        <td> 1,003.30 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>26-May-24</td>
+        <td>Youth ministry</td>
+        <td>1822325</td>
+        <td> 37.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 37.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>26-May-24</td>
+        <td>Women Ministry</td>
+        <td>1822326</td>
+        <td> 60.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 60.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>26-May-24</td>
+        <td>Tithes</td>
+        <td>1822327</td>
+        <td> 1,208.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,208.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>26-May-24</td>
+        <td>Freewill</td>
+        <td>1822327</td>
+        <td> 40.00 </td>
+        <td></td>
+        <td> 40.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2-Jun-24</td>
+        <td>Men Ministry</td>
+        <td>1822328</td>
+        <td> 30.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 30.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2-Jun-24</td>
+        <td>Tithes</td>
+        <td>1822329</td>
+        <td> 4,038.60 </td>
+        <td></td>
+        <td></td>
+        <td> 4,038.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2-Jun-24</td>
+        <td>M.O</td>
+        <td>1822329</td>
+        <td> 3,248.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 3,248.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2-Jun-24</td>
+        <td>Freewill</td>
+        <td>1822329</td>
+        <td> 511.00 </td>
+        <td></td>
+        <td> 511.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2-Jun-24</td>
+        <td>LDF</td>
+        <td>1822329</td>
+        <td> 846.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 846.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>9-Jun-24</td>
+        <td>Tithes</td>
+        <td>1822334</td>
+        <td> 1,207.30 </td>
+        <td></td>
+        <td></td>
+        <td> 1,207.30 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>16-Jun-24</td>
+        <td>Children Ministry</td>
+        <td>1822330</td>
+        <td> 33.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 33.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>16-Jun-24</td>
+        <td>Evening Service-Men Ministry</td>
+        <td>1822331</td>
+        <td> 247.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 247.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>16-Jun-24</td>
+        <td>Tithes</td>
+        <td>1822333</td>
+        <td> 1,679.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,679.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>16-Jun-24</td>
+        <td>Men Ministry</td>
+        <td>1822333</td>
+        <td> 1,745.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 872.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>23-Jun-24</td>
+        <td>Tithes</td>
+        <td>1822335</td>
+        <td> 1,241.10 </td>
+        <td></td>
+        <td></td>
+        <td> 1,241.10 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>23-Jun-24</td>
+        <td>Freewill</td>
+        <td>1822335</td>
+        <td> 130.00 </td>
+        <td></td>
+        <td> 130.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>23-Jun-24</td>
+        <td>Local Offery</td>
+        <td>1822335</td>
+        <td> 859.00 </td>
+        <td> 859.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>23-Jun-24</td>
+        <td>Children Ministry</td>
+        <td></td>
+        <td> 33.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 33.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Jun-24</td>
+        <td>Tithes</td>
+        <td></td>
+        <td> 1,791.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,791.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Jun-24</td>
+        <td>PUC Offering</td>
+        <td></td>
+        <td> 695.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 695.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Jun-24</td>
+        <td>Freewill</td>
+        <td></td>
+        <td> 595.00 </td>
+        <td></td>
+        <td> 595.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Jun-24</td>
+        <td>Youth ministry</td>
+        <td></td>
+        <td> 60.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 60.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Jun-24</td>
+        <td>Men Ministry</td>
+        <td></td>
+        <td> 30.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 30.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Jun-24</td>
+        <td>Evangelism Ministry</td>
+        <td></td>
+        <td> 22.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 22.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Jul-24</td>
+        <td>Tithes</td>
+        <td></td>
+        <td> 3,957.50 </td>
+        <td></td>
+        <td></td>
+        <td> 3,957.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Jul-24</td>
+        <td>M.O</td>
+        <td></td>
+        <td> 3,295.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 3,295.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Jul-24</td>
+        <td>Freewill</td>
+        <td></td>
+        <td> 60.00 </td>
+        <td></td>
+        <td> 60.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Jul-24</td>
+        <td>LDF</td>
+        <td></td>
+        <td> 957.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 957.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Jul-24</td>
+        <td>Children Ministry</td>
+        <td></td>
+        <td> 59.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 59.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Jul-24</td>
+        <td>Tithes</td>
+        <td></td>
+        <td> 1,043.20 </td>
+        <td></td>
+        <td></td>
+        <td> 1,043.20 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Jul-24</td>
+        <td>Area Offering</td>
+        <td></td>
+        <td> 3,169.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 3,169.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Jul-24</td>
+        <td>Freewill</td>
+        <td></td>
+        <td> 146.00 </td>
+        <td></td>
+        <td> 146.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Jul-24</td>
+        <td>Children Ministry</td>
+        <td></td>
+        <td> 49.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 49.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Jul-24</td>
+        <td>Tithes</td>
+        <td></td>
+        <td> 1,806.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,806.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Jul-24</td>
+        <td>Freewill</td>
+        <td></td>
+        <td> 110.00 </td>
+        <td></td>
+        <td> 110.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Jul-24</td>
+        <td>Local -Virteous Ladies</td>
+        <td></td>
+        <td> 1,000.00 </td>
+        <td> 1,000.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Jul-24</td>
+        <td>Tithes</td>
+        <td></td>
+        <td> 1,242.50 </td>
+        <td></td>
+        <td></td>
+        <td> 1,242.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Jul-24</td>
+        <td>Freewill</td>
+        <td></td>
+        <td> 615.00 </td>
+        <td></td>
+        <td> 615.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Jul-24</td>
+        <td>National Youth Week</td>
+        <td></td>
+        <td> 1,382.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 691.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Jul-24</td>
+        <td>Youth ministry</td>
+        <td></td>
+        <td> 32.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 32.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>28-Jul-24</td>
+        <td>Youth ministry</td>
+        <td></td>
+        <td> 42.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 42.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4-Aug-24</td>
+        <td>Tithes</td>
+        <td></td>
+        <td> 3,417.00 </td>
+        <td></td>
+        <td></td>
+        <td> 3,417.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4-Aug-24</td>
+        <td>Mission Offery</td>
+        <td></td>
+        <td> 2,680.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 2,680.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Aug-24</td>
+        <td>Tithes</td>
+        <td>2405951</td>
+        <td> 1,602.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,602.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Aug-24</td>
+        <td>District Week( Sunday)</td>
+        <td>2405951</td>
+        <td> 4,734.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 4,734.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Aug-24</td>
+        <td>District Week( Weekend)</td>
+        <td>2405951</td>
+        <td> 826.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 826.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Aug-24</td>
+        <td>Youth ministry</td>
+        <td>2405952</td>
+        <td> 35.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 35.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Aug-24</td>
+        <td>Children Ministry</td>
+        <td>2405953</td>
+        <td> 41.40 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 41.40 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18-Aug-24</td>
+        <td>Youth ministry</td>
+        <td>2405955</td>
+        <td> 43.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 43.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18-Aug-24</td>
+        <td>Freewill</td>
+        <td>2405956</td>
+        <td> 120.00 </td>
+        <td></td>
+        <td> 120.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18-Aug-24</td>
+        <td>Tithes</td>
+        <td>2405956</td>
+        <td> 1,983.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,983.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18-Aug-24</td>
+        <td>Pensos (Shalom)</td>
+        <td>2405956</td>
+        <td> 2,138.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 2,138.00 </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Aug-24</td>
+        <td>Freewill</td>
+        <td>2405957</td>
+        <td> 151.00 </td>
+        <td></td>
+        <td> 151.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Aug-24</td>
+        <td>Tithes</td>
+        <td>2405957</td>
+        <td> 1,178.70 </td>
+        <td></td>
+        <td></td>
+        <td> 1,178.70 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Sep-24</td>
+        <td>Tithes</td>
+        <td>2405958</td>
+        <td> 3,543.50 </td>
+        <td></td>
+        <td></td>
+        <td> 3,543.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Sep-24</td>
+        <td>M.O</td>
+        <td>2405958</td>
+        <td> 3,057.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 3,057.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Sep-24</td>
+        <td>Freewill</td>
+        <td>2405958</td>
+        <td> 24.00 </td>
+        <td></td>
+        <td> 24.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Sep-24</td>
+        <td>LDF</td>
+        <td>2405958</td>
+        <td> 880.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 880.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Sep-24</td>
+        <td>Tithes</td>
+        <td>2405959</td>
+        <td> 800.00 </td>
+        <td></td>
+        <td></td>
+        <td> 800.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>8-Sep-24</td>
+        <td>Youth ministry</td>
+        <td>2405960</td>
+        <td> 59.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 59.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>8-Sep-24</td>
+        <td>Tithes</td>
+        <td>2405961</td>
+        <td> 1,056.20 </td>
+        <td></td>
+        <td></td>
+        <td> 1,056.20 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>15-Sep-24</td>
+        <td>Children Ministry</td>
+        <td>2405962</td>
+        <td> 48.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 48.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>15-Sep-24</td>
+        <td>Tithes</td>
+        <td>2405963</td>
+        <td> 2,008.60 </td>
+        <td></td>
+        <td></td>
+        <td> 2,008.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>15-Sep-24</td>
+        <td>Freewill</td>
+        <td>2405963</td>
+        <td> 60.00 </td>
+        <td></td>
+        <td> 60.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>15-Sep-24</td>
+        <td>Local offering</td>
+        <td>2405963</td>
+        <td> 937.50 </td>
+        <td> 937.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>22-Sep-24</td>
+        <td>Youth ministry</td>
+        <td>2405965</td>
+        <td> 20.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 20.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>22-Sep-24</td>
+        <td>Tithes</td>
+        <td>2405966</td>
+        <td> 1,173.50 </td>
+        <td></td>
+        <td></td>
+        <td> 1,173.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>22-Sep-24</td>
+        <td>Officers Appreciation</td>
+        <td>2405966</td>
+        <td> 2,524.00 </td>
+        <td> 2,524.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>22-Sep-24</td>
+        <td>Freewill</td>
+        <td>2405966</td>
+        <td> 80.00 </td>
+        <td></td>
+        <td> 80.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>29-Sep-24</td>
+        <td>Tithes</td>
+        <td>2405967</td>
+        <td> 1,041.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,041.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>29-Sep-24</td>
+        <td>Local offering( Ministries )</td>
+        <td>2405967</td>
+        <td> 507.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 101.40 </td>
+        <td> 101.40 </td>
+        <td> 101.40 </td>
+        <td> 101.40 </td>
+        <td> 101.40 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>29-Sep-24</td>
+        <td>Freewill</td>
+        <td>2405967</td>
+        <td> 30.00 </td>
+        <td></td>
+        <td> 30.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6-Oct-24</td>
+        <td>Tithes</td>
+        <td>2405969</td>
+        <td> 5,698.00 </td>
+        <td></td>
+        <td></td>
+        <td> 5,698.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6-Oct-24</td>
+        <td>Freewill</td>
+        <td>2405969</td>
+        <td> 35.00 </td>
+        <td></td>
+        <td> 35.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6-Oct-24</td>
+        <td>M.O</td>
+        <td>2405969</td>
+        <td> 3,763.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 3,763.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6-Oct-24</td>
+        <td>LDF</td>
+        <td>2405969</td>
+        <td> 1,067.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1,067.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>13-Oct-24</td>
+        <td>Tithes</td>
+        <td>2405970</td>
+        <td> 1,486.60 </td>
+        <td></td>
+        <td></td>
+        <td> 1,486.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>13-Oct-24</td>
+        <td>Freewill</td>
+        <td>2405970</td>
+        <td> 102.00 </td>
+        <td></td>
+        <td> 102.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>13-Oct-24</td>
+        <td>GPCC</td>
+        <td>2405970</td>
+        <td> 1,076.30 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1,076.30 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>27-Oct-24</td>
+        <td>Tithes</td>
+        <td>2405971</td>
+        <td> 3,221.00 </td>
+        <td></td>
+        <td></td>
+        <td> 3,221.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>27-Oct-24</td>
+        <td>Freewill</td>
+        <td>2405971</td>
+        <td> 193.00 </td>
+        <td></td>
+        <td> 193.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>27-Oct-24</td>
+        <td>Local Offery( Ministries)</td>
+        <td>2405971</td>
+        <td> 945.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 189.10 </td>
+        <td> 189.10 </td>
+        <td> 189.10 </td>
+        <td> 189.10 </td>
+        <td> 189.10 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Nov-24</td>
+        <td>Tithes</td>
+        <td>2405972</td>
+        <td> 800.00 </td>
+        <td></td>
+        <td></td>
+        <td> 800.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Nov-24</td>
+        <td>Youth ministry</td>
+        <td>2405973</td>
+        <td> 20.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 20.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Nov-24</td>
+        <td>Tithes</td>
+        <td>2405974</td>
+        <td> 4,571.00 </td>
+        <td></td>
+        <td></td>
+        <td> 4,571.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Nov-24</td>
+        <td>Freewill</td>
+        <td>2405974</td>
+        <td> 155.50 </td>
+        <td></td>
+        <td> 155.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Nov-24</td>
+        <td>M.O</td>
+        <td>2405974</td>
+        <td> 4,660.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 4,660.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Nov-24</td>
+        <td>LDF</td>
+        <td>2405974</td>
+        <td> 978.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 978.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Nov-24</td>
+        <td>Children Ministry</td>
+        <td>2405975</td>
+        <td> 48.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 48.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Nov-24</td>
+        <td>Youth ministry</td>
+        <td>2405976</td>
+        <td> 20.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 20.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Nov-24</td>
+        <td>Tithes</td>
+        <td>2405977</td>
+        <td> 1,705.00 </td>
+        <td></td>
+        <td></td>
+        <td> 1,705.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Nov-24</td>
+        <td>Freewill</td>
+        <td>2405977</td>
+        <td> 961.00 </td>
+        <td></td>
+        <td> 961.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Nov-24</td>
+        <td>Area Offering</td>
+        <td>2405977</td>
+        <td> 2,527.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 2,527.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Nov-24</td>
+        <td>Tithes</td>
+        <td>2405978</td>
+        <td> 30.00 </td>
+        <td></td>
+        <td></td>
+        <td> 30.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Nov-24</td>
+        <td>Tithes</td>
+        <td>2405979</td>
+        <td> 1,785.20 </td>
+        <td></td>
+        <td></td>
+        <td> 1,785.20 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Nov-24</td>
+        <td>Freewill</td>
+        <td>2405979</td>
+        <td> 197.00 </td>
+        <td></td>
+        <td> 197.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Nov-24</td>
+        <td>Local Offery</td>
+        <td>2405979</td>
+        <td> 1,259.50 </td>
+        <td> 1,259.50</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>

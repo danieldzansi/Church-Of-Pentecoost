@@ -1,0 +1,1471 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background: #333;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            right: -300px; /* Move sidebar to the right */
+            transition: right 0.3s;
+            box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .logo img {
+            width: 40px;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar nav ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar nav ul li a:hover,
+        .sidebar nav ul li a.active {
+            background: #555;
+        }
+
+        /* Menu Button */
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #15a9ce;
+            padding: 10px;
+            position: absolute;
+            top: 20px;
+            right: 20px; /* Move button to the right */
+        }
+
+        /* Adjust main content when menu opens */
+        .main-content {
+            transition: margin-right 0.3s;
+        }
+
+        .sidebar.active + .main-content {
+            margin-right: 250px;
+        }
+        /* Ensure the table container takes full width */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Scroll horizontally if needed */
+}
+
+/* Style the table */
+table {
+    width: 100%; /* Full width of container */
+    border-collapse: collapse;
+    table-layout: fixed; /* Ensures even column spacing */
+}
+
+/* Style table header */
+th {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+/* Style table rows */
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+/* Make text wrap properly */
+th, td {
+    overflow: hidden;
+    white-space: normal;
+}
+
+/* Responsive Fix */
+@media screen and (max-width: 768px) {
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initially hidden */
+    width: 250px;
+    height: 100vh;
+    background: #333;
+    color: white;
+    padding: 20px;
+    transition: right 0.3s, top 0.3s;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+.sidebar.hidden {
+    top: -100px; /* Move sidebar up when scrolling down */
+}
+
+/* Menu Button */
+.menu-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #15a9ce;
+    padding: 10px;
+    transition: top 0.3s;
+}
+
+.menu-icon.hidden {
+    top: -100px; /* Move button up when scrolling down */
+}
+
+    </style>
+    
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="../assets/images/logo.png" alt="Church Logo">
+            <h2>ACCOUNTS 2023</h2>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../dashboard.html">Dashboard</a></li>
+                <li><a href="../records.html" class="active">Manage Records</a></li>
+                <li><a href="../landing.html" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Menu Toggle Button -->
+    <button id="menuToggle" class="menu-icon">&#9776;</button>
+
+    <script>
+        document.getElementById("menuToggle").addEventListener("click", function() {
+            document.querySelector(".sidebar").classList.toggle("active");
+        });
+
+        document.addEventListener("click", function(event) {
+            let sidebar = document.querySelector(".sidebar");
+            let menuToggle = document.getElementById("menuToggle");
+
+            if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                sidebar.classList.remove("active");
+            }
+        });
+        
+    </script>
+
+</body>
+</html>
+<table>
+    <tr>
+        <td>THE CHURCH OF PENTECOST  </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> EWE ASSEMBLY, PANTANG VILLAGE </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> PAYMENT CASHBOOK </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Opening Balance</td>
+        <td> 4,810.35 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>In Coming</td>
+        <td> 32,726.90 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Outgoing</td>
+        <td> 32,502.61 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Balance</td>
+        <td> 5,034.64 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Date </td>
+        <td>Particulars </td>
+        <td> Bank </td>
+        <td> cash </td>
+        <td> TRANSPORT &amp; WATER </td>
+        <td> Stationary and Others </td>
+        <td>Evangelism ministry</td>
+        <td>Youth ministry</td>
+        <td>Men ministry</td>
+        <td>Women ministry</td>
+        <td>Mission House Visitation</td>
+        <td>Welfare</td>
+        <td>Literture Debt</td>
+        <td>Funeral Support</td>
+        <td>Asset</td>
+        <td>Bank Charges</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5-Jun-23</td>
+        <td>Payment of water and TNT.</td>
+        <td></td>
+        <td> 200.00 </td>
+        <td> 200.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5-Jun-23</td>
+        <td>Cash to bank</td>
+        <td> 667.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12-Jun-23</td>
+        <td>Cash to bank</td>
+        <td> 584.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>19-Jun-23</td>
+        <td>Cash to bank</td>
+        <td> 252.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>26-Jun-23</td>
+        <td>Cash to bank</td>
+        <td> 175.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Jun-23</td>
+        <td>SMS Charges</td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Jul-23</td>
+        <td>Commission on Turnover</td>
+        <td></td>
+        <td> 5.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 5.00 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Jul-23</td>
+        <td>Payment of water and TNT.</td>
+        <td></td>
+        <td> 250.00 </td>
+        <td> 250.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Jul-23</td>
+        <td>Cash to bank</td>
+        <td> 608.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Jul-23</td>
+        <td>Cash to bank</td>
+        <td> 552.70 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Jul-23</td>
+        <td>payment of Funeral Support and TNT to Forgive Ahiakpor&#39;s Funeral</td>
+        <td></td>
+        <td> 3,000.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 3,000.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Jul-23</td>
+        <td>Cash to bank</td>
+        <td> 662.70 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>23-Jul-23</td>
+        <td>Cash to bank</td>
+        <td> 873.30 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>31-Jul-23</td>
+        <td>SMS Charges</td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Aug-23</td>
+        <td>Commission on Turnover</td>
+        <td></td>
+        <td> 40.63 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 40.63 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Aug-23</td>
+        <td>Cash to bank</td>
+        <td> 1,159.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Aug-23</td>
+        <td>payment of water and TNT.</td>
+        <td></td>
+        <td> 200.00 </td>
+        <td> 200.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14-Aug-23</td>
+        <td>Cash to bank</td>
+        <td> 582.10 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21-Aug-23</td>
+        <td>Cash to bank</td>
+        <td> 329.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Aug-23</td>
+        <td>SMS Charges</td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Sep-23</td>
+        <td>Commission on Turnover</td>
+        <td></td>
+        <td> 5.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 5.00 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5-Sep-23</td>
+        <td>Cash to bank</td>
+        <td> 568.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6-Sep-23</td>
+        <td>payment of Half year Report and Evangelism Lacoste.</td>
+        <td></td>
+        <td> 647.10 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>8-Sep-23</td>
+        <td>payment of water and TNT.</td>
+        <td></td>
+        <td> 250.00 </td>
+        <td> 250.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18-Sep-23</td>
+        <td>Cash to bank</td>
+        <td> 1,030.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>25-Sep-23</td>
+        <td>Cash to bank</td>
+        <td> 683.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>29-Sep-23</td>
+        <td>payment of Officers Appreciation</td>
+        <td></td>
+        <td> 2,030.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 2,030.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>29-Sep-23</td>
+        <td>SMS Charges</td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Oct-23</td>
+        <td>Commission on Turnover</td>
+        <td></td>
+        <td> 28.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 28.50 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2-Oct-23</td>
+        <td>Cash to bank</td>
+        <td> 1,535.60 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2-Oct-23</td>
+        <td>payment of water and TNT and Battery</td>
+        <td></td>
+        <td> 270.00 </td>
+        <td> 250.00 </td>
+        <td> 20.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3-Oct-23</td>
+        <td>payment of Lay leadershio manuel and 2024 Diary</td>
+        <td></td>
+        <td> 1,323.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1,323.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>9-Oct-23</td>
+        <td>Cash to bank</td>
+        <td> 196.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>16-Oct-23</td>
+        <td>Cash to bank</td>
+        <td> 1,467.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Oct-23</td>
+        <td>payment of TNT and Refreshmen -Youth walk, Medical support to Elder Foli and Support to Women ministry</td>
+        <td></td>
+        <td> 2,600.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 700.00 </td>
+        <td></td>
+        <td> 1,400.00 </td>
+        <td></td>
+        <td> 500.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Oct-23</td>
+        <td>SMS Charges</td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Oct-23</td>
+        <td>Cash to bank</td>
+        <td> 778.80 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Nov-23</td>
+        <td>Commission on Turnover</td>
+        <td></td>
+        <td> 35.88 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 35.88 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6-Nov-23</td>
+        <td>Cash to bank</td>
+        <td> 1,188.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6-Nov-23</td>
+        <td>payment of water and TNT, Enelope and Batteries, Medical support to Rebecca Yenkyi</td>
+        <td></td>
+        <td> 740.00 </td>
+        <td> 200.00 </td>
+        <td> 40.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 500.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7-Nov-23</td>
+        <td>payment for Child Naming</td>
+        <td></td>
+        <td> 500.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 500.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10-Nov-23</td>
+        <td>payment for Child Naming</td>
+        <td></td>
+        <td> 400.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 400.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17-Nov-23</td>
+        <td>Cash to bank</td>
+        <td> 97.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>20-Nov-23</td>
+        <td>Cash to bank</td>
+        <td> 1,536.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>27-Nov-23</td>
+        <td>Cash to bank</td>
+        <td> 726.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>30-Nov-23</td>
+        <td>SMS Charges</td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1-Dec-23</td>
+        <td>Commission on Turnover</td>
+        <td></td>
+        <td> 20.50 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 20.50 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4-Dec-23</td>
+        <td>Cash to bank</td>
+        <td> 2,135.20 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>8-Dec-23</td>
+        <td>payment of water and TNT.</td>
+        <td></td>
+        <td> 250.00 </td>
+        <td> 250.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11-Dec-23</td>
+        <td>Cash to bank</td>
+        <td> 14,340.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>15-Dec-23</td>
+        <td>payment for Chair and Rice</td>
+        <td></td>
+        <td> 16,000.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 4,000.00 </td>
+        <td></td>
+        <td></td>
+        <td> 12,000.00 </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>29-Dec-23</td>
+        <td>Payment of Widow&#39;s, Aged and Orphan</td>
+        <td> - 0 </td>
+        <td> 3,700.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 3,700.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>29-Dec-23</td>
+        <td>SMS Charges</td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> 1.00 </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td> 32,726.90 </td>
+        <td> 32,502.61 </td>
+        <td> 1,600.00 </td>
+        <td> 60.00 </td>
+        <td> - 0 </td>
+        <td> 700.00 </td>
+        <td> - 0 </td>
+        <td> 1,400.00 </td>
+        <td> - 0 </td>
+        <td> 11,630.00 </td>
+        <td> 1,323.00 </td>
+        <td> 3,000.00 </td>
+        <td> 12,000.00 </td>
+        <td> 142.51</td>
+    </tr>
+</table>

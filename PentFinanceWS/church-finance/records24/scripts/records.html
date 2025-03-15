@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashbook Management</title>
+    <link rel="stylesheet" href="styles/record.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Receipt Cashbook Section -->
+        <section class="form-section">
+            <h2>Receipt Cashbook</h2>
+            <form id="receiptForm">
+                <div class="form-grid">
+                    <input type="hidden" id="receiptId">
+                    <div><label>Date:</label><input type="date" id="receiptDate" required></div>
+                    <div><label>Particulars:</label><input type="text" id="receiptParticulars" required></div>
+                    <div><label>Reference:</label><input type="text" id="receiptReference" required></div>
+                    <div><label>Cash:</label><input type="number" step="0.01" id="receiptCash"></div>
+                    <div><label>Local Offering:</label><input type="number" step="0.01" id="receiptLocalOffering"></div>
+                    <div><label>Freewill:</label><input type="number" step="0.01" id="receiptFreewill"></div>
+                    <div><label>Tithes:</label><input type="number" step="0.01" id="receiptTithes"></div>
+                    <div><label>Missions OfferY:</label><input type="number" step="0.01" id="receiptMissionsOffery"></div>
+                    <div><label>Evening Service Offering:</label><input type="number" step="0.01" id="receiptEveningServiceOffering"></div>
+                    <div><label>Mega Offering:</label><input type="number" step="0.01" id="receiptMegaOffering"></div>
+                    <div><label>Local Development Fund:</label><input type="number" step="0.01" id="receiptLocalDevelopmentFund"></div>
+                    <div><label>Evangelism Ministry:</label><input type="number" step="0.01" id="receiptEvangelismMinistry"></div>
+                    <div><label>Youth Ministry:</label><input type="number" step="0.01" id="receiptYouthMinistry"></div>
+                    <div><label>Men Ministry:</label><input type="number" step="0.01" id="receiptMenMinistry"></div>
+                    <div><label>Women Ministry:</label><input type="number" step="0.01" id="receiptWomenMinistry"></div>
+                    <div><label>Children Ministry:</label><input type="number" step="0.01" id="receiptChildrenMinistry"></div>
+                    <div><label>Area Week Offering:</label><input type="number" step="0.01" id="receiptAreaWeekOffering"></div>
+                    <div><label>Refund:</label><input type="number" step="0.01" id="receiptRefund"></div>
+                    <div><label>McKeown Missions Week:</label><input type="number" step="0.01" id="receiptMckeownMissionsWeek"></div>
+                    <div><label>District Week Offering:</label><input type="number" step="0.01" id="receiptDistrictWeekOffering"></div>
+                    <div><label>Pentecost University Offering:</label><input type="number" step="0.01" id="receiptPentecostUniversityOffering"></div>
+                    <div><label>Pensos:</label><input type="number" step="0.01" id="receiptPensos"></div>
+                    <div><label>GPCC:</label><input type="number" step="0.01" id="receiptGPCC"></div>
+                </div>
+                <button type="submit">Save Receipt</button>
+            </form>
+            <div id="receiptTable"></div>
+        </section>
+<!-- Payment Cashbook Section -->
+        <section class="form-section">
+            <h2>Payment Cashbook</h2>
+            <form id="paymentForm">
+                <div class="form-grid">
+                    <input type="hidden" id="paymentId">
+                    <div><label>Date:</label><input type="date" id="paymentDate" required></div>
+                    <div><label>Particulars:</label><input type="text" id="paymentParticulars" required></div>
+                    <div><label>Bank:</label><input type="number" step="0.01" id="paymentBank"></div>
+                    <div><label>Cash:</label><input type="number" step="0.01" id="paymentCash"></div>
+                    <div><label>Transport & Water:</label><input type="number" step="0.01" id="paymentTransportAndWater"></div>
+                    <div><label>Stationary & Others:</label><input type="number" step="0.01" id="paymentStationaryAndOthers"></div>
+                    <div><label>Evangelism Ministry:</label><input type="number" step="0.01" id="paymentEvangelismMinistry"></div>
+                    <div><label>Youth Ministry:</label><input type="number" step="0.01" id="paymentYouthMinistry"></div>
+                    <div><label>Men Ministry:</label><input type="number" step="0.01" id="paymentMenMinistry"></div>
+                    <div><label>Women Ministry:</label><input type="number" step="0.01" id="paymentWomenMinistry"></div>
+                    <div><label>Mission House Visitation:</label><input type="number" step="0.01" id="paymentMissionHouseVisitation"></div>
+                    <div><label>Welfare:</label><input type="number" step="0.01" id="paymentWelfare"></div>
+                    <div><label>Literature Debt:</label><input type="number" step="0.01" id="paymentLiteratureDebt"></div>
+                    <div><label>Funeral Support:</label><input type="number" step="0.01" id="paymentFuneralSupport"></div>
+                    <div><label>Asset:</label><input type="number" step="0.01" id="paymentAsset"></div>
+                    <div><label>Bank Charges:</label><input type="number" step="0.01" id="paymentBankCharges"></div>
+                </div>
+                <button type="submit">Save Payment</button>
+            </form>
+            <div id="paymentTable"></div>
+        </section>
+<!-- District Payment Cashbook Section -->
+        <section class="form-section">
+            <h2>District Payment Cashbook</h2>
+            <form id="districtForm">
+                <div class="form-grid">
+                    <input type="hidden" id="districtId">
+                    <div><label>Date:</label><input type="date" id="districtDate" required></div>
+                    <div><label>Particulars:</label><input type="text" id="districtParticulars" required></div>
+                    <div><label>Reference:</label><input type="text" id="districtReference" required></div>
+                    <div><label>Cash:</label><input type="number" step="0.01" id="districtCash"></div>
+                    <div><label>Tithes:</label><input type="number" step="0.01" id="districtTithes"></div>
+                    <div><label>Missions OfferY:</label><input type="number" step="0.01" id="districtMissionsOffery"></div>
+                    <div><label>Evangelism Ministry:</label><input type="number" step="0.01" id="districtEvangelismMinistry"></div>
+                    <div><label>Youth Ministry:</label><input type="number" step="0.01" id="districtYouthMinistry"></div>
+                    <div><label>Men Ministry:</label><input type="number" step="0.01" id="districtMenMinistry"></div>
+                    <div><label>Women Ministry:</label><input type="number" step="0.01" id="districtWomenMinistry"></div>
+                    <div><label>Children Ministry:</label><input type="number" step="0.01" id="districtChildrenMinistry"></div>
+                    <div><label>Area Week Offering:</label><input type="number" step="0.01" id="districtAreaWeekOffering"></div>
+                    <div><label>McKeown Missions Week:</label><input type="number" step="0.01" id="districtMckeownMissionsWeek"></div>
+                    <div><label>District Week Offering:</label><input type="number" step="0.01" id="districtDistrictWeekOffering"></div>
+                    <div><label>Pentecost University Offering:</label><input type="number" step="0.01" id="districtPentecostUniversityOffering"></div>
+                    <div><label>Pensos:</label><input type="number" step="0.01" id="districtPensos"></div>
+                    <div><label>GPCC:</label><input type="number" step="0.01" id="districtGPCC"></div>
+                </div>
+                <button type="submit">Save District Payment</button>
+            </form>
+            <div id="districtTable"></div>
+        </section>
+    </div>
+
+    <script type="module" src="styles/scripts/records.js"></script>
+
+</body>
+</html>
