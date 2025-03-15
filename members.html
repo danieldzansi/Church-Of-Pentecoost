@@ -10,10 +10,12 @@
     <nav>
         <ul>
             <li><a href="#visitors">Visitors Membership</a></li>
-            <li><a href="#soul-won">Soul Won</a></li>
-            <li><a href="#souls-baptized">Souls Baptized</a></li>
+            <li><a href="#souls">Soul Won</a></li>
+            <li><a href="#baptism">Souls Baptized</a></li>
             <li><a href="#death">Death Records</a></li>
-            <li><a href="#birth">Birth Records</a></li>
+            <li><a href="#birthForm">Birth Records</a></li>
+            <li><a href="#backsliders">Backsliders Won</a></li>
+            <li><a href="#backslider">Backsliders Followed</a></li>
         </ul>
     </nav>
     
@@ -154,6 +156,55 @@
                 </tr>
             </thead>
             <tbody id="BirthsTableBody">
+
+            </tbody>
+        </table>
+    </section>
+
+    <section id="backsliders">
+        <h2>Back sliders won</h2>
+        <form id="backsliderswonForm">
+            <input type="text" name="Name"  placeholder="Name" required>
+            <input type="text" name="Contact" placeholder="Contact" required>
+            <input type="text" name="Baptism"  placeholder="Baptism" required>
+            <input type="text" name="Location" placeholder="Location">
+            <button type="submit">Add Backslided Soul</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Baptism</th>
+                    <th>Location</th>
+                     
+                </tr>
+            </thead>
+            <tbody id="backSlidersTableBody">
+
+            </tbody>
+        </table>
+    </section>
+    <section id="backslider">
+        <h2>Back sliders followed</h2>
+        <form id="backsliderwonForm">
+            <input type="text" name="Name"  placeholder="Name" required>
+            <input type="text" name="Contact" placeholder="Contact" required>
+            <input type="text" name="Baptism"  placeholder="Baptism" required>
+            <input type="text" name="Location" placeholder="Location">
+            <button type="submit">Add Backsliders Followed</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Baptism</th>
+                    <th>Location</th>
+                     
+                </tr>
+            </thead>
+            <tbody id="backSliderTableBody">
 
             </tbody>
         </table>

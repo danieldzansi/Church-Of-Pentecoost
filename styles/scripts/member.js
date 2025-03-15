@@ -46,7 +46,9 @@ function displayData(tableName, data) {
         souls : "SoulsTableBody",
         baptism: "SoulTableBody",
         death: "DeathsTableBody",
-        birth: "BirthsTableBody"
+        birth: "BirthsTableBody",
+        backsliders:"backSlidersTableBody",
+        backslider: "backSliderTableBody"
     };
 
     const tableBody = document.getElementById(tableBodyIdMap[tableName]);
@@ -109,6 +111,26 @@ function displayData(tableName, data) {
                     <td>${record.DedicationDate || ''}</td>
                 </tr>`;
                 break;
+            case "backsliders":
+                row = `<tr>
+                    <td>${record.Name || ''}</td>
+                    <td>${record.Contact || ''}</td>
+                    <td>${record.Baptism || ''}</td>
+                    <td>${record.Location || ''}</td>
+                    
+                </tr>`;
+                break;
+
+                case "backslider":
+                    row = `<tr>
+                        <td>${record.Name || ''}</td>
+                        <td>${record.Contact || ''}</td>
+                        <td>${record.Baptism || ''}</td>
+                        <td>${record.Location || ''}</td>
+                        
+                    </tr>`;
+                    break;   
+
         }
 
         tableBody.innerHTML += row;
@@ -122,7 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
         souls: 'soulsForm',
         baptism: 'soulBaptizedForm',
         death: 'deathTableForm',
-        birth: 'birthForm'
+        birth: 'birthForm',
+        backsliders: 'backsliderswonForm',
+        backslider: 'backsliderwonForm'  
+
     };
 
     for (const [table, formId] of Object.entries(sections)) {
@@ -138,4 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchData("baptism");
     fetchData("death");
     fetchData("birth");
+    fetchData("backsliders");
+    fetchData("backslider");
 });
