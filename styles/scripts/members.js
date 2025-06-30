@@ -36,7 +36,7 @@ document.getElementById("member-form").addEventListener("submit", async (e) => {
 // Fetch Members
 async function fetchMembers() {
     try {
-        const { data, error } = await supabase.from("members").select();
+        const { data, error } = await supabase.from("members").select().order('id', { ascending: true });
         
         if (error) {
             console.error("Fetch Error:", error);
